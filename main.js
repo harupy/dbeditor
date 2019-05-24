@@ -99,9 +99,9 @@
           jn: 'join()',
           ps: 'printSchema()',
           sh: 'show()',
-          dt: 'distinct()',
+          dis: 'distinct()',
           tpd: 'toPandas()',
-          fc: 'f.col()',
+          c: 'f.col()',
           scs: 'sqlContext.sql()',
           agcnt: 'agg(f.count())',
           agcntd: 'agg(f.countDistinct())',
@@ -111,6 +111,7 @@
           in: 'isNull()',
           inn: 'isNotNull()',
           ow: 'otherwise()',
+          pypi: 'dbutils.library.installPyPI()',
         };
 
         if (prefix in snippets) {
