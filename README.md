@@ -113,3 +113,7 @@ const snippets = {
 ## References
 
 - [Is there a way to use Vim keybindings in Google Colaboratory?](https://stackoverflow.com/questions/48674326/is-there-a-way-to-use-vim-keybindings-in-google-colaboratory)
+
+## License
+
+MIT
