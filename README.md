@@ -17,7 +17,7 @@ Just a little hack to enhance the editor functionality of Databricks notebook.
 1. Open `chrome://extensions` on Chrome
 1. Enable "Developer mode"
 1. Click "Load unpacked"
-1. Select the folder that was just cloned
+1. Select the extension directory
 
 ## Getting Started
 
