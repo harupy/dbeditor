@@ -1,4 +1,4 @@
-# Databricks Notebook Enhancer
+# DBEditor
 
 Just a little hack to enhance the editor functionality of Databricks notebook.
 
