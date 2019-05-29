@@ -1,8 +1,8 @@
 {
-  "name": "Databricks Notebook Enhancer",
+  "name": "DBEditor",
   "version": "0.1",
   "manifest_version": 2,
-  "description": "Enhance the editor functionality of Databricks notebook",
+  "description": "Enhance the editor functionality of Databricks notebooks",
   "icons": {
     "48": "logo.png"
   },

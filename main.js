@@ -1,6 +1,5 @@
 (() => {
   const enhanceCell = event => {
-    // cell in the edit mode
     const cellEditing = document.querySelector('div.is-editing div.CodeMirror');
 
     if (cellEditing) {
@@ -168,9 +167,6 @@
         const fastKeysActions = {
           jj: [goLineLeftSmart],
           jk: ['goLineRight'],
-          // 'jj': ['goLineDown'],
-          // 'kk': ['goLineUp'],
-          // 'jk': ['goLineRight'],
         };
 
         if (lapseTime < 500) {
@@ -188,15 +184,6 @@
     }
   };
 
-  const changeMachingBracketColor = () => {
-    // const brackets = document.querySelectorAll('span.CodeMirror-matchingbracket');
-    const brackets = document.querySelectorAll('.command-active');
-    brackets.forEach(bracket => {
-      bracket.style.setProperty('border', '1px solid red', 'important');
-    });
-  };
-
   document.addEventListener('mouseup', enhanceCell, false);
-  // document.addEventListener('mousedown', changeMachingBracketColor, false);
   document.addEventListener('keyup', enhanceCell, false);
 })();
