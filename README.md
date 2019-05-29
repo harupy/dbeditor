@@ -6,7 +6,7 @@ Just a little hack to enhance the editor functionality of Databricks notebook.
   <img src="https://user-images.githubusercontent.com/17039389/53938304-21371780-40f3-11e9-949e-00c38dddf488.gif">
 </kbd>
 
-## Chrome Web Store
+## Installation
 
 [DBEditor - Chrome Web Store](https://chrome.google.com/webstore/detail/dbeditor/nlnifkmijjmmoaindmhbcdfinkcmfafj)
 
