@@ -96,12 +96,12 @@ You can create your own snippets by adding a key/value pair to `snippets` in `ma
 
 ```js
 const snippets = {
-          'sl'    : 'select()',
-          'al'    : 'alias()',
-          'gb'    : 'groupBy()',
-          ...
-          // add your own snippets
-          'ms'   : 'mysnippet()',
+  'sl'    : 'select()',
+  'al'    : 'alias()',
+  'gb'    : 'groupBy()',
+  ...
+  // add your own snippets
+  'ms'   : 'mysnippet()',
 }
 ```
 
