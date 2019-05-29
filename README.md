@@ -6,9 +6,14 @@ Just a little hack to enhance the editor functionality of Databricks notebook.
   <img src="https://user-images.githubusercontent.com/17039389/53938304-21371780-40f3-11e9-949e-00c38dddf488.gif">
 </kbd>
 
-## Installation
+## Chrome Web Store
+
+[DBEditor - Chrome Web Store](https://chrome.google.com/webstore/detail/dbeditor/nlnifkmijjmmoaindmhbcdfinkcmfafj)
+
+## Customize
 
 1. Clone this repository
+1. Edit the source code
 1. Open `chrome://extensions` on Chrome
 1. Enable "Developer mode"
 1. Click "Load unpacked"
