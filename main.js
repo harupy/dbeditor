@@ -78,18 +78,18 @@
         const head = { line: cursor.line, ch: cursor.ch - prefix.length };
 
         const snippets = {
-          sl: 'select()',
+          sel: 'select()',
           al: 'alias()',
           gb: 'groupBy()',
           ob: 'orderBy()',
           pb: 'partitionBy()',
-          fl: 'filter()',
+          fil: 'filter()',
           srt: 'spark.read.table()',
           srp: 'spark.read.parquet()',
-          fft: 'from pyspark.sql import functions as f, types as t',
+          ftw: 'from pyspark.sql import functions as f, types as t, window as w',
           cnt: 'count()',
-          rn: 'round()',
-          fna: 'fillna()',
+          rou: 'round()',
+          filn: 'fillna()',
           cntd: 'countDistinct()',
           btw: 'between()',
           wc: 'withColumn()',
