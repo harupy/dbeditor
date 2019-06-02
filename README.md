@@ -1,6 +1,6 @@
 # DBEditor
 
-Code Faster on Databricks
+Code **FASTER** on Databricks
 
 <kbd>
   <img src="https://user-images.githubusercontent.com/17039389/53938304-21371780-40f3-11e9-949e-00c38dddf488.gif">
@@ -16,15 +16,6 @@ Code Faster on Databricks
 
 [DBEditor - Chrome Web Store](https://chrome.google.com/webstore/detail/dbeditor/nlnifkmijjmmoaindmhbcdfinkcmfafj)
 
-## Customize
-
-1. Clone this repository
-1. Edit the source code
-1. Open `chrome://extensions` on Chrome
-1. Enable `Developer mode`
-1. Click `Load unpacked`
-1. Select the extension directory
-
 ## Getting Started
 
 1. Open a Databricks notebook on the browser
@@ -34,11 +25,14 @@ Code Faster on Databricks
 1. Press `Tab` (`gb` will be expanded to `groupBy()`)
 1. Press `Ctrl-u` (The current line will be duplicated below)
 
-## How this extension works
+## Customize
 
-Each cell on the notebook has an object called `CodeMirror` which manages the cell content and state. This extension injects a JS script to override the properties related to key bindings and add new features not provided by default.
-
-[CodeMirror: User Manual](https://codemirror.net/doc/manual.html)
+1. Clone this repository
+1. Edit the source code
+1. Open `chrome://extensions` on Chrome
+1. Enable `Developer mode`
+1. Click `Load unpacked`
+1. Select the extension directory
 
 ## Shortcuts
 
@@ -65,7 +59,7 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 ## Snippets (Press `Tab` to expand)
 
-| Snippet | Body                                               |
+| Snippet | Output                                             |
 | :------ | :------------------------------------------------- |
 | fft     | from pyspark.sql import functions as f, types as t |
 | srt     | spark.read.table()                                 |
@@ -100,23 +94,33 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 | inn     | isNotNull()                                        |
 | ow      | otherwise()                                        |
 
-## Customize Snippets
+## Add your own snippets
 
 You can add your own snippets by inserting a new key/value pair to the variable `snippets` in `main.js`.
 
 ```js
 const snippets = {
-  'sl'    : 'select()',
-  'al'    : 'alias()',
-  'gb'    : 'groupBy()',
   ...
-  // you can add your own snippets
-  'ms'   : 'function_name()',
+  // your own snippet
+  'ms'   : 'func_name()',
 }
 ```
 
+## How this extension works
+
+Each cell on the notebook has an object called `CodeMirror` which manages the cell content and state. This extension injects a JS script to override the properties related to key bindings and add new features not provided by default.
+
+## Other Extensions
+
+| Extension Name                             | Purpose                                       |
+| ------------------------------------------ | --------------------------------------------- |
+| [DBDark](https://github.com/harupy/dbdark) | Provides dark theme for Databricks            |
+| [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents automatically      |
+| [DBHide](https://github.com/harupy/dbhide) | Hide code and cells to see the results easily |
+
 ## References
 
+- [CodeMirror: User Manual](https://codemirror.net/doc/manual.html)
 - [Is there a way to use Vim keybindings in Google Colaboratory?](https://stackoverflow.com/questions/48674326/is-there-a-way-to-use-vim-keybindings-in-google-colaboratory)
 
 ## License
