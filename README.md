@@ -36,7 +36,7 @@ Code **FASTER** on Databricks
 
 ## Shortcuts
 
-**Note that some default shortcuts in Chrome are overriden.**
+**Note that some default shortcuts in Chrome are overridden.**
 
 | Shortcut     | Action                                     |
 | :----------- | :----------------------------------------- |
