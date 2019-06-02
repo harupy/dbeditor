@@ -1,10 +1,16 @@
 # DBEditor
 
-Just a little hack to enhance the editor functionality of Databricks notebook.
+Code Faster on Databricks
 
 <kbd>
   <img src="https://user-images.githubusercontent.com/17039389/53938304-21371780-40f3-11e9-949e-00c38dddf488.gif">
 </kbd>
+
+## What this extension provides
+
+- Code Snippets
+- Shortcuts
+- Key-Sequence Action
 
 ## Installation
 
@@ -21,17 +27,16 @@ Just a little hack to enhance the editor functionality of Databricks notebook.
 
 ## Getting Started
 
-1. Open a Databricks notebook
-1. Make sure the extension logo is colored (which means the extension is enabled)
+1. Open a Databricks notebook on the browser
+1. Make sure the extension logo is enabled (the extension logo is enabled)
 1. Select a cell and enter the edit mode
 1. Type `df.gb`
 1. Press `Tab` (`gb` will be expanded to `groupBy()`)
 1. Press `Ctrl-u` (The current line will be duplicated below)
-1. Type `jj` **fast** (A blank line will be inserted below)
 
-## How this works
+## How this extension works
 
-Each cell on the notebook has an object called `CodeMirror` which provides functions to get and edit the cell content. This extension injects a JS script to override some properties of `CodeMirror` and add features not provided by default.
+Each cell on the notebook has an object called `CodeMirror` which manages the cell content and state. This extension injects a JS script to override the properties related to key bindings and add new features not provided by default.
 
 [CodeMirror: User Manual](https://codemirror.net/doc/manual.html)
 
@@ -41,51 +46,51 @@ Each cell on the notebook has an object called `CodeMirror` which provides funct
 
 | Shortcut       | Action                                     |
 | :------------- | :----------------------------------------- |
-| `Ctrl-k`       | Delete the word the cursor is on           |
-| `Ctrl-o`       | Open a blank line below                    |
-| `Ctrl-Shift-o` | Open a blank line above                    |
-| `Ctrl-l`       | Delete up to the end of the current line   |
-| `Ctrl-h`       | Delete up to the start of the current line |
-| `Ctrl-u`       | Duplicate the current line below           |
-| `Ctrl-Shift-u` | Duplicate the current line above           |
+| `Ctrl-K`       | Delete the word the cursor is on           |
+| `Ctrl-O`       | Open a blank line below                    |
+| `Ctrl-Shift-O` | Open a blank line above                    |
+| `Ctrl-L`       | Delete up to the end of the current line   |
+| `Ctrl-H`       | Delete up to the start of the current line |
+| `Ctrl-U`       | Duplicate the current line below           |
+| `Ctrl-Shift-U` | Duplicate the current line above           |
 
-## Key Sequences
+## Key-Sequence Action
 
-This feature allows you to trigger actions by pressing one or more keys multiple times **fast** in sequence (similar to mapping `jj` to `Esc` in Vim).
+This feature allows you to trigger actions by pressing one or more keys multiple times **FAST** in sequence (similar to mapping `jj`or `jk` to `Esc` in Vim).
 
-| Keys | Action                            |
-| :--- | :-------------------------------- |
-| `jj` | Open a blank like below           |
-| `kk` | Open a blank like above           |
-| `jk` | Go to the end of the current line |
+| Key sequence | Action                      |
+| :----------- | :-------------------------- |
+| `jj`         | Go to the start of the line |
+| `jk`         | Go to the end of the line   |
 
 ## Snippets (Press `Tab` to expand)
 
-| Prefix   | Snippet                                              |
+| Snippet  | Body                                                 |
 | :------- | :--------------------------------------------------- |
-| `sl`     | `select()`                                           |
-| `al`     | `alias()`                                            |
-| `dt`     | `distinct()`                                         |
-| `gb`     | `groupBy()`                                          |
-| `ob`     | `orderBy()`                                          |
-| `pb`     | `partitionBy()`                                      |
-| `ps`     | `printSchema()`                                      |
-| `fl`     | `filter()`                                           |
+| `fft`    | `from pyspark.sql import functions as f, types as t` |
 | `srt`    | `spark.read.table()`                                 |
 | `srp`    | `spark.read.parquet()`                               |
-| `fft`    | `from pyspark.sql import functions as f, types as t` |
-| `cnt`    | `count()`                                            |
-| `rn`     | `round()`                                            |
+| `scs`    | `sqlContext.sql()`                                   |
+| `ps`     | `printSchema()`                                      |
+| `pb`     | `partitionBy()`                                      |
 | `fna`    | `fillna()`                                           |
-| `cntd`   | `countDistinct()`                                    |
-| `btw`    | `between()`                                          |
+| `dt`     | `distinct()`                                         |
 | `wc`     | `withColumn()`                                       |
 | `wcr`    | `withColumnRenamed()`                                |
+| `dist`   | `distinct()`                                         |
 | `disp`   | `display()`                                          |
-| `jo`     | `join()`                                             |
 | `tpd`    | `toPandas()`                                         |
+| `ob`     | `orderBy()`                                          |
+| `gb`     | `groupBy()`                                          |
+| `sl`     | `select()`                                           |
 | `c`      | `f.col()`                                            |
-| `scs`    | `sqlContext.sql()`                                   |
+| `al`     | `alias()`                                            |
+| `fl`     | `filter()`                                           |
+| `cnt`    | `count()`                                            |
+| `rn`     | `round()`                                            |
+| `cntd`   | `countDistinct()`                                    |
+| `btw`    | `between()`                                          |
+| `jo`     | `join()`                                             |
 | `agcnt`  | `agg(f.count())`                                     |
 | `agcntd` | `agg(f.countDistinct())`                             |
 | `agsum`  | `agg(f.sum())`                                       |
@@ -97,7 +102,7 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 ## Customize Snippets
 
-You can create your own snippets by adding a key/value pair to `snippets` in `main.js`.
+You can add your own snippets by inserting a new key/value pair to the variable `snippets` in `main.js`.
 
 ```js
 const snippets = {
@@ -105,8 +110,8 @@ const snippets = {
   'al'    : 'alias()',
   'gb'    : 'groupBy()',
   ...
-  // add your own snippets
-  'ms'   : 'mysnippet()',
+  // you can add your own snippets
+  'ms'   : 'function_name()',
 }
 ```
 
