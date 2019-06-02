@@ -8,9 +8,9 @@ Code Faster on Databricks
 
 ## What this extension provides
 
-- Code Snippets
 - Shortcuts
 - Key-Sequence Action
+- Code Snippets
 
 ## Installation
 
@@ -44,15 +44,15 @@ Each cell on the notebook has an object called `CodeMirror` which manages the ce
 
 **Note that some default shortcuts in Chrome are overriden.**
 
-| Shortcut       | Action                                     |
-| :------------- | :----------------------------------------- |
-| `Ctrl-K`       | Delete the word the cursor is on           |
-| `Ctrl-O`       | Open a blank line below                    |
-| `Ctrl-Shift-O` | Open a blank line above                    |
-| `Ctrl-L`       | Delete up to the end of the current line   |
-| `Ctrl-H`       | Delete up to the start of the current line |
-| `Ctrl-U`       | Duplicate the current line below           |
-| `Ctrl-Shift-U` | Duplicate the current line above           |
+| Shortcut     | Action                                     |
+| :----------- | :----------------------------------------- |
+| Ctrl-K       | Delete the word the cursor is on           |
+| Ctrl-O       | Open a blank line below                    |
+| Ctrl-Shift-O | Open a blank line above                    |
+| Ctrl-L       | Delete up to the end of the current line   |
+| Ctrl-H       | Delete up to the start of the current line |
+| Ctrl-U       | Duplicate the current line below           |
+| Ctrl-Shift-U | Duplicate the current line above           |
 
 ## Key-Sequence Action
 
@@ -60,45 +60,45 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 | Key sequence | Action                      |
 | :----------- | :-------------------------- |
-| `jj`         | Go to the start of the line |
-| `jk`         | Go to the end of the line   |
+| jj           | Go to the start of the line |
+| jk           | Go to the end of the line   |
 
 ## Snippets (Press `Tab` to expand)
 
-| Snippet  | Body                                                 |
-| :------- | :--------------------------------------------------- |
-| `fft`    | `from pyspark.sql import functions as f, types as t` |
-| `srt`    | `spark.read.table()`                                 |
-| `srp`    | `spark.read.parquet()`                               |
-| `scs`    | `sqlContext.sql()`                                   |
-| `ps`     | `printSchema()`                                      |
-| `pb`     | `partitionBy()`                                      |
-| `fna`    | `fillna()`                                           |
-| `dt`     | `distinct()`                                         |
-| `wc`     | `withColumn()`                                       |
-| `wcr`    | `withColumnRenamed()`                                |
-| `dist`   | `distinct()`                                         |
-| `disp`   | `display()`                                          |
-| `tpd`    | `toPandas()`                                         |
-| `ob`     | `orderBy()`                                          |
-| `gb`     | `groupBy()`                                          |
-| `sl`     | `select()`                                           |
-| `c`      | `f.col()`                                            |
-| `al`     | `alias()`                                            |
-| `fl`     | `filter()`                                           |
-| `cnt`    | `count()`                                            |
-| `rn`     | `round()`                                            |
-| `cntd`   | `countDistinct()`                                    |
-| `btw`    | `between()`                                          |
-| `jo`     | `join()`                                             |
-| `agcnt`  | `agg(f.count())`                                     |
-| `agcntd` | `agg(f.countDistinct())`                             |
-| `agsum`  | `agg(f.sum())`                                       |
-| `agmin`  | `agg(f.min())`                                       |
-| `agmax`  | `agg(f.max())`                                       |
-| `in`     | `isNull()`                                           |
-| `inn`    | `isNotNull()`                                        |
-| `ow`     | `otherwise()`                                        |
+| Snippet | Body                                               |
+| :------ | :------------------------------------------------- |
+| fft     | from pyspark.sql import functions as f, types as t |
+| srt     | spark.read.table()                                 |
+| srp     | spark.read.parquet()                               |
+| scs     | sqlContext.sql()                                   |
+| ps      | printSchema()                                      |
+| pb      | partitionBy()                                      |
+| fna     | fillna()                                           |
+| dt      | distinct()                                         |
+| wc      | withColumn()                                       |
+| wcr     | withColumnRenamed(                                 |
+| dist    | distinct()                                         |
+| disp    | display()                                          |
+| tpd     | toPandas()                                         |
+| ob      | orderBy()                                          |
+| gb      | groupBy()                                          |
+| sl      | select()                                           |
+| c       | f.col()                                            |
+| al      | alias()                                            |
+| fl      | filter()                                           |
+| cnt     | count()                                            |
+| rn      | round()                                            |
+| cntd    | countDistinct()                                    |
+| btw     | between()                                          |
+| jo      | join()                                             |
+| agcnt   | agg(f.count())                                     |
+| agcntd  | agg(f.countDistinct())                             |
+| agsum   | agg(f.sum())                                       |
+| agmin   | agg(f.min())                                       |
+| agmax   | agg(f.max())                                       |
+| in      | isNull()                                           |
+| inn     | isNotNull()                                        |
+| ow      | otherwise()                                        |
 
 ## Customize Snippets
 
