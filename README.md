@@ -114,7 +114,7 @@ Each cell on the notebook has an object called `CodeMirror` which manages the ce
 
 | Extension Name                             | Purpose                                       |
 | :----------------------------------------- | :-------------------------------------------- |
-| [DBDark](https://github.com/harupy/dbdark) | Provides dark theme for Databricks            |
+| [DBDark](https://github.com/harupy/dbdark) | Provide dark theme for Databricks             |
 | [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents automatically      |
 | [DBHide](https://github.com/harupy/dbhide) | Hide code and cells to see the results easily |
 
