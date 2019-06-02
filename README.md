@@ -23,7 +23,7 @@ Code **FASTER** on Databricks
 1. Select a cell and enter the edit mode
 1. Type `df.gb`
 1. Press `Tab` (`gb` will be expanded to `groupBy()`)
-1. Press `Ctrl-u` (The current line will be duplicated below)
+1. Press `Ctrl-U` (The current line will be duplicated below)
 
 ## Customize
 
