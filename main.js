@@ -78,39 +78,92 @@
         const head = { line: cursor.line, ch: cursor.ch - prefix.length };
 
         const snippets = {
+          // DataFrame
           sel: 'select()',
-          al: 'alias()',
+          cnt: 'count()',
           gb: 'groupBy()',
           ob: 'orderBy()',
           pb: 'partitionBy()',
           fil: 'filter()',
-          srt: 'spark.read.table()',
-          srp: 'spark.read.parquet()',
-          ftw: 'from pyspark.sql import functions as f, types as t, window as w',
-          cnt: 'count()',
-          rou: 'round()',
-          filn: 'fillna()',
-          cntd: 'countDistinct()',
-          btw: 'between()',
+          fna: 'fillna()',
           wc: 'withColumn()',
           wcr: 'withColumnRenamed()',
-          disp: 'display()',
           jo: 'join()',
-          ps: 'printSchema()',
+          dp: 'display()',
           sh: 'show()',
-          dist: 'distinct()',
+          ps: 'printSchema()',
+          sam: 'sample()',
+          dt: 'distinct()',
+          dr: 'drop()',
+          drn: 'dropna()',
+          drd: 'dropDuplicates()',
           tpd: 'toPandas()',
-          c: 'f.col()',
-          scs: 'sqlContext.sql()',
-          agcnt: 'agg(f.count())',
-          agcntd: 'agg(f.countDistinct())',
-          agsum: 'agg(f.sum())',
-          agmin: 'agg(f.min())',
-          agmax: 'agg(f.max())',
-          in: 'isNull()',
-          inn: 'isNotNull()',
+
+          // column
+          al: 'alias()',
           ow: 'otherwise()',
+          ew: 'endswith()',
+          ss: 'startswith()',
+          isn: 'isNull()',
+          isnn: 'isNotNull()',
+          isi: 'isin()',
+          btw: 'between()',
+
+          // functions
+          col: 'F.col()',
+          lit: 'F.lit()',
+          len: 'F.length()',
+          rnd: 'F.round()',
+          cntd: 'F.countDistinct()',
+          uxt: 'F.unix_timestamp()',
+          up: 'F.upper()',
+          low: 'F.lower()',
+          tr: 'F.trim()',
+          ltr: 'F.ltrim()',
+          rtr: 'F.rtrim()',
+          dtad: 'F.date_add()',
+          dtsb: 'F.date_sub()',
+          dtfmt: 'F.date_format()',
+          dtdf: 'F.datediff()',
+
+          // io
+          src: 'spark.read.csv()',
+          srt: 'spark.read.table()',
+          srp: 'spark.read.parquet()',
+          wcsv: 'write.csv()',
+          wp: 'write.parquet()',
+          wop: "write.mode('overwrite').parquet()",
+          wap: "write.mode('append').parquet()",
+          wep: "write.mode('error').parquet()",
+          wip: "write.mode('ignore').parquet()",
+
+          // aggregation
+          agcnt: 'agg(F.count())',
+          agcntd: 'agg(F.countDistinct())',
+          agsum: 'agg(F.sum())',
+          agmean: 'agg(F.mean())',
+          agavg: 'agg(F.avg())',
+          agmin: 'agg(F.min())',
+          agmax: 'agg(F.max())',
+
+          // dbutils
+          dwg: 'dbutils.widgets.get()',
+          dnr: 'dbutils.notebook.run()',
+          dne: 'dbutils.notebook.exit()',
           pypi: 'dbutils.library.installPyPI()',
+
+          // udf
+          udfstr: '@F.udf(T.StringType())\n',
+          udfbl: '@F.udf(T.BooleanType())\n',
+          udfsht: '@F.udf(T.ShortType())\n',
+          udfint: '@F.udf(T.IntegerType())\n',
+          udflong: '@F.udf(T.LongType())\n',
+          udfflt: '@F.udf(T.FloatType())\n',
+          udfdbl: '@F.udf(T.DoubleType())\n',
+
+          // others
+          scs: 'sqlContext.sql()',
+          ftw: 'from pyspark.sql import functions as F, types as T, window as W',
         };
 
         if (prefix in snippets) {
