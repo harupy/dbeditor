@@ -1,14 +1,29 @@
 # DBEditor
 
-Just a little hack to enhance the editor functionality of Databricks notebook.
+Code **FASTER** on Databricks
 
 <kbd>
   <img src="https://user-images.githubusercontent.com/17039389/53938304-21371780-40f3-11e9-949e-00c38dddf488.gif">
 </kbd>
 
+## What this extension provides
+
+- Shortcuts
+- Key-Sequence Action
+- Code Snippets
+
 ## Installation
 
 [DBEditor - Chrome Web Store](https://chrome.google.com/webstore/detail/dbeditor/nlnifkmijjmmoaindmhbcdfinkcmfafj)
+
+## Getting Started
+
+1. Open a Databricks notebook on the browser
+1. Make sure the extension logo is enabled (the extension logo is enabled)
+1. Select a cell and enter the edit mode
+1. Type `df.gb`
+1. Press `Tab` (`gb` will be expanded to `groupBy()`)
+1. Press `Ctrl-U` (The current line will be duplicated below)
 
 ## Customize
 
@@ -19,100 +34,98 @@ Just a little hack to enhance the editor functionality of Databricks notebook.
 1. Click `Load unpacked`
 1. Select the extension directory
 
-## Getting Started
-
-1. Open a Databricks notebook
-1. Make sure the extension logo is colored (which means the extension is enabled)
-1. Select a cell and enter the edit mode
-1. Type `df.gb`
-1. Press `Tab` (`gb` will be expanded to `groupBy()`)
-1. Press `Ctrl-u` (The current line will be duplicated below)
-1. Type `jj` **fast** (A blank line will be inserted below)
-
-## How this works
-
-Each cell on the notebook has an object called `CodeMirror` which provides functions to get and edit the cell content. This extension injects a JS script to override some properties of `CodeMirror` and add features not provided by default.
-
-[CodeMirror: User Manual](https://codemirror.net/doc/manual.html)
-
 ## Shortcuts
 
-**Note that some default shortcuts in Chrome are overriden.**
+**Note that some default shortcuts in Chrome are overridden.**
 
-| Shortcut       | Action                                     |
-| :------------- | :----------------------------------------- |
-| `Ctrl-k`       | Delete the word the cursor is on           |
-| `Ctrl-o`       | Open a blank line below                    |
-| `Ctrl-Shift-o` | Open a blank line above                    |
-| `Ctrl-l`       | Delete up to the end of the current line   |
-| `Ctrl-h`       | Delete up to the start of the current line |
-| `Ctrl-u`       | Duplicate the current line below           |
-| `Ctrl-Shift-u` | Duplicate the current line above           |
+| Shortcut     | Action                                     |
+| :----------- | :----------------------------------------- |
+| Ctrl-K       | Delete the word the cursor is on           |
+| Ctrl-O       | Open a blank line below                    |
+| Ctrl-Shift-O | Open a blank line above                    |
+| Ctrl-L       | Delete up to the end of the current line   |
+| Ctrl-H       | Delete up to the start of the current line |
+| Ctrl-U       | Duplicate the current line below           |
+| Ctrl-Shift-U | Duplicate the current line above           |
 
-## Key Sequences
+## Key-Sequence Action
 
-This feature allows you to trigger actions by pressing one or more keys multiple times **fast** in sequence (similar to mapping `jj` to `Esc` in Vim).
+This feature allows you to trigger actions by pressing one or more keys multiple times **FAST** in sequence (similar to mapping `jj`or `jk` to `Esc` in Vim).
 
-| Keys | Action                            |
-| :--- | :-------------------------------- |
-| `jj` | Open a blank like below           |
-| `kk` | Open a blank like above           |
-| `jk` | Go to the end of the current line |
+| Key sequence | Action                      |
+| :----------- | :-------------------------- |
+| jj           | Go to the start of the line |
+| jk           | Go to the end of the line   |
 
 ## Snippets (Press `Tab` to expand)
 
-| Prefix   | Snippet                                              |
-| :------- | :--------------------------------------------------- |
-| `sl`     | `select()`                                           |
-| `al`     | `alias()`                                            |
-| `dt`     | `distinct()`                                         |
-| `gb`     | `groupBy()`                                          |
-| `ob`     | `orderBy()`                                          |
-| `pb`     | `partitionBy()`                                      |
-| `ps`     | `printSchema()`                                      |
-| `fl`     | `filter()`                                           |
-| `srt`    | `spark.read.table()`                                 |
-| `srp`    | `spark.read.parquet()`                               |
-| `fft`    | `from pyspark.sql import functions as f, types as t` |
-| `cnt`    | `count()`                                            |
-| `rn`     | `round()`                                            |
-| `fna`    | `fillna()`                                           |
-| `cntd`   | `countDistinct()`                                    |
-| `btw`    | `between()`                                          |
-| `wc`     | `withColumn()`                                       |
-| `wcr`    | `withColumnRenamed()`                                |
-| `disp`   | `display()`                                          |
-| `jo`     | `join()`                                             |
-| `tpd`    | `toPandas()`                                         |
-| `c`      | `f.col()`                                            |
-| `scs`    | `sqlContext.sql()`                                   |
-| `agcnt`  | `agg(f.count())`                                     |
-| `agcntd` | `agg(f.countDistinct())`                             |
-| `agsum`  | `agg(f.sum())`                                       |
-| `agmin`  | `agg(f.min())`                                       |
-| `agmax`  | `agg(f.max())`                                       |
-| `in`     | `isNull()`                                           |
-| `inn`    | `isNotNull()`                                        |
-| `ow`     | `otherwise()`                                        |
+| Snippet | Output                                             |
+| :------ | :------------------------------------------------- |
+| fft     | from pyspark.sql import functions as f, types as t |
+| srt     | spark.read.table()                                 |
+| srp     | spark.read.parquet()                               |
+| scs     | sqlContext.sql()                                   |
+| ps      | printSchema()                                      |
+| pb      | partitionBy()                                      |
+| fna     | fillna()                                           |
+| dt      | distinct()                                         |
+| wc      | withColumn()                                       |
+| wcr     | withColumnRenamed(                                 |
+| dist    | distinct()                                         |
+| disp    | display()                                          |
+| tpd     | toPandas()                                         |
+| ob      | orderBy()                                          |
+| gb      | groupBy()                                          |
+| sl      | select()                                           |
+| c       | f.col()                                            |
+| al      | alias()                                            |
+| fl      | filter()                                           |
+| cnt     | count()                                            |
+| rn      | round()                                            |
+| cntd    | countDistinct()                                    |
+| btw     | between()                                          |
+| jo      | join()                                             |
+| agcnt   | agg(f.count())                                     |
+| agcntd  | agg(f.countDistinct())                             |
+| agsum   | agg(f.sum())                                       |
+| agmin   | agg(f.min())                                       |
+| agmax   | agg(f.max())                                       |
+| in      | isNull()                                           |
+| inn     | isNotNull()                                        |
+| ow      | otherwise()                                        |
 
-## Customize Snippets
+## Add your own snippets
 
-You can create your own snippets by adding a key/value pair to `snippets` in `main.js`.
+You can add your own snippets by inserting a new key/value pair to the variable `snippets` in `main.js`.
 
 ```js
 const snippets = {
-  'sl'    : 'select()',
-  'al'    : 'alias()',
-  'gb'    : 'groupBy()',
   ...
-  // add your own snippets
-  'ms'   : 'mysnippet()',
+  // your own snippet
+  'ms'   : 'func_name()',
 }
 ```
 
+## How this extension works
+
+Each cell on the notebook has an object called `CodeMirror` which manages the cell content and state. This extension injects a JS script to override the properties related to key bindings and add new features not provided by default.
+
+## Other Extensions
+
+| Extension Name                             | Purpose                                       |
+| :----------------------------------------- | :-------------------------------------------- |
+| [DBDark](https://github.com/harupy/dbdark) | Provide dark theme for Databricks             |
+| [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents automatically      |
+| [DBHide](https://github.com/harupy/dbhide) | Hide code and cells to see the results easily |
+
 ## References
 
+- [CodeMirror: User Manual](https://codemirror.net/doc/manual.html)
 - [Is there a way to use Vim keybindings in Google Colaboratory?](https://stackoverflow.com/questions/48674326/is-there-a-way-to-use-vim-keybindings-in-google-colaboratory)
+
+## Acknowledgements
+
+A huge thanks to Databricks for making data science and machine learning easier to access for everyone.
 
 ## License
 
