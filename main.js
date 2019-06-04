@@ -182,6 +182,8 @@
       const extraKeyActions = {
         'Ctrl-O': [openBlankLineBelow],
         'Shift-Ctrl-O': [openBlankLineAbove],
+        'Alt-Right': ['goWordRight'],
+        'Alt-Left': ['goWordLeft'],
         'Ctrl-L': ['delWrappedLineRight'],
         'Ctrl-H': [delLineLeftSmart],
         'Ctrl-K': [deleteCursorWord],
@@ -203,11 +205,11 @@
         }
       };
 
-      for (const [key, actions] of Object.entries(extraKeyActions)) {
+      Object.entries(extraKeyActions).forEach(([key, actions]) => {
         cellEditing.CodeMirror.options.extraKeys[key] = cm => {
           actions.forEach(act => execAction(cm, act));
         };
-      }
+      });
 
       // key sequences
       const onKeyup = (cm, e) => {
