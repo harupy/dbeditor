@@ -109,8 +109,7 @@
           isi: 'isin()',
           btw: 'between()',
 
-          // functions
-          col: 'F.col()',
+          col: 'F.col(${col}).F.col(${col})',
           lit: 'F.lit()',
           len: 'F.length()',
           rnd: 'F.round()',
@@ -166,13 +165,25 @@
           ftw: 'from pyspark.sql import functions as F, types as T, window as W',
         };
 
+        const replacePlaceholder = (body, cursor, selections = []) => {
+          const pattern = /\$\{([^{}]*)\}/;
+          const match = body.match(pattern);
+          if (!match) {
+            return [body, selections];
+          } else {
+            const [placeholder, defaultStr] = match;
+            const head = { line: cursor.line, ch: cursor.ch + match.index };
+            const anchor = { line: cursor.line, ch: head.ch + defaultStr.length };
+            const newBody = body.replace(placeholder, defaultStr);
+            return replacePlaceholder(newBody, cursor, [...selections, { head, anchor }]);
+          }
+        };
+
         if (prefix in snippets) {
           const body = snippets[prefix];
-          cm.replaceRange(body, head, cursor);
-          const match = body.match(/\)+$/);
-          if (match) {
-            cm.moveH(-match[0].length, 'char');
-          }
+          const [newBody, selections] = replacePlaceholder(body, head);
+          cm.replaceRange(newBody, head, cursor);
+          cm.setSelections(selections);
         } else {
           tabDefaultFunc(cm);
         }
