@@ -3,70 +3,7 @@
     const cellEditing = document.querySelector('div.is-editing div.CodeMirror');
 
     if (cellEditing) {
-      const goLineLeftSmart = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
-        const leadingSpaces = cursorLine.match(/^\s*/)[0];
-        cm.setCursor({ line, ch: leadingSpaces.length });
-      };
-
-      const duplicateLineBelow = cm => {
-        const { line, ch } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
-        ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
-        cm.replaceSelection(cursorLine);
-        cm.setCursor({ line: line + 1, ch });
-      };
-
-      const duplicateLineAbove = cm => {
-        const { line, ch } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
-        ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
-        cm.replaceSelection(cursorLine);
-        cm.setCursor({ line, ch });
-      };
-
-      const openBlankLineBelow = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
-        if (cursorLine.endsWith(':')) {
-          ['goLineRight', 'newlineAndIndent'].forEach(cmd => cm.execCommand(cmd));
-        } else {
-          ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
-          cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
-        }
-      };
-
-      const openBlankLineAbove = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
-        ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
-        cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
-      };
-
-      const delLineLeftSmart = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
-        cm.execCommand('delLineLeft');
-        cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
-      };
-
-      const deleteCursorWord = cm => {
-        const cursor = cm.getCursor();
-        const anchor = { line: cursor.line, ch: cursor.ch + 1 };
-        const charCursorRight = cm.getRange(cursor, anchor);
-        const regex = /[a-zA-Z0-9_]/; // characters which can be used in a variable name
-        if (charCursorRight.match(regex)) {
-          cm.execCommand('goWordRight');
-        }
-        const rightEdge = cm.getCursor();
-        cm.execCommand('goWordLeft');
-        const leftEdge = cm.getCursor();
-        cm.setCursor(cursor);
-        cm.replaceRange('', leftEdge, rightEdge);
-      };
-
-      // snippets
+      // ----- snippets -----
       const tabDefaultFunc = cellEditing.CodeMirror.options.extraKeys['Tab'];
       const expandSnippetOrIndent = cm => {
         const cursor = cm.getCursor();
@@ -94,6 +31,8 @@
           sh: 'show(${nrows, truncate})',
           ps: 'printSchema()',
           sam: 'sample(${withReplacement, fraction, seed})',
+          samb: 'sampleBy(${col, fractions, seed=None})',
+          sub: 'subtract(${other})',
           dt: 'distinct()',
           dr: 'drop(${*cols})',
           drn: 'dropna(${how, thresh, subset})',
@@ -102,6 +41,8 @@
 
           // column
           al: 'alias(${alias})',
+          ca: 'cast(dataType)',
+          at: 'astype(dataType)',
           ow: 'otherwise(${value})',
           ew: 'endswith(${other})',
           ss: 'startswith(${other})',
@@ -113,6 +54,8 @@
           // functions
           col: 'F.col(${col})',
           lit: 'F.lit(${col})',
+          std: 'F.stddev(${col})',
+          sumd: 'F.sumDistinct(${col})',
           len: 'F.length(${col})',
           rnd: 'F.round(${col, scale})',
           cntd: 'F.countDistinct(${col})',
@@ -122,10 +65,16 @@
           tr: 'F.trim(${col})',
           ltr: 'F.ltrim(${col})',
           rtr: 'F.rtrim(${col})',
+          ss: 'F.substring(${str, pos, len})',
+          rr: 'regexp_replace(${str, pattern, replacement})',
+          rep: 'repeat(${col, n})',
+          rev: 'reverse(${col})',
+          todt: 'F.to_date(${col})',
           dtad: 'F.date_add(${date})',
           dtsb: 'F.date_sub(${date})',
           dtfmt: 'F.date_format(${date, format})',
           dtdf: 'F.datediff(${end, start})',
+          sec: 'second(${col})',
 
           // io
           srt: 'spark.read.table(${tableName})',
@@ -192,6 +141,70 @@
         }
       };
 
+      // ----- shortcuts -----
+      const goLineLeftSmart = cm => {
+        const { line } = cm.getCursor();
+        const cursorLine = cm.getLine(line);
+        const leadingSpaces = cursorLine.match(/^\s*/)[0];
+        cm.setCursor({ line, ch: leadingSpaces.length });
+      };
+
+      const duplicateLineBelow = cm => {
+        const { line, ch } = cm.getCursor();
+        const cursorLine = cm.getLine(line);
+        ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
+        cm.replaceSelection(cursorLine);
+        cm.setCursor({ line: line + 1, ch });
+      };
+
+      const duplicateLineAbove = cm => {
+        const { line, ch } = cm.getCursor();
+        const cursorLine = cm.getLine(line);
+        ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
+        cm.replaceSelection(cursorLine);
+        cm.setCursor({ line, ch });
+      };
+
+      const openBlankLineBelow = cm => {
+        const { line } = cm.getCursor();
+        const cursorLine = cm.getLine(line);
+        if (cursorLine.endsWith(':')) {
+          ['goLineRight', 'newlineAndIndent'].forEach(cmd => cm.execCommand(cmd));
+        } else {
+          ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
+          cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
+        }
+      };
+
+      const openBlankLineAbove = cm => {
+        const { line } = cm.getCursor();
+        const cursorLine = cm.getLine(line);
+        ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
+        cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
+      };
+
+      const delLineLeftSmart = cm => {
+        const { line } = cm.getCursor();
+        const cursorLine = cm.getLine(line);
+        cm.execCommand('delLineLeft');
+        cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
+      };
+
+      const deleteCursorWord = cm => {
+        const cursor = cm.getCursor();
+        const anchor = { line: cursor.line, ch: cursor.ch + 1 };
+        const charCursorRight = cm.getRange(cursor, anchor);
+        const regex = /[a-zA-Z0-9_]/; // characters which can be used in a variable name
+        if (charCursorRight.match(regex)) {
+          cm.execCommand('goWordRight');
+        }
+        const rightEdge = cm.getCursor();
+        cm.execCommand('goWordLeft');
+        const leftEdge = cm.getCursor();
+        cm.setCursor(cursor);
+        cm.replaceRange('', leftEdge, rightEdge);
+      };
+
       // shortcuts
       const extraKeyActions = {
         'Ctrl-O': [openBlankLineBelow],
@@ -225,7 +238,7 @@
         };
       });
 
-      // key sequences
+      // ----- key-sequence action -----
       const onKeyup = (cm, e) => {
         const anchor = cm.getCursor();
         const head = { line: anchor.line, ch: anchor.ch - 2 };
@@ -233,7 +246,7 @@
         const lapseTime = now - (cm.changedAt || now); // unit: milliseconds
         cm.changedAt = now;
 
-        const fastKeysActions = {
+        const keySequenceActions = {
           jj: [goLineLeftSmart],
           jk: ['goLineRight'],
         };
@@ -242,7 +255,7 @@
           const keys = cm.getRange(head, anchor);
           if (keys in fastKeysActions) {
             cm.replaceRange('', head, anchor);
-            fastKeysActions[keys].forEach(act => execAction(cm, act));
+            keySequenceActions[keys].forEach(act => execAction(cm, act));
           }
         }
       };
