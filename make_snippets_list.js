@@ -22,7 +22,7 @@ const extractSnippets = snippetsString => {
   });
 };
 
-const snippetsString = getSnippetsString;
+const snippetsString = getSnippetsString();
 const snippets = extractSnippets(snippetsString);
 
 const markdownTable =
