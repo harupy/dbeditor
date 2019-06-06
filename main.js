@@ -17,7 +17,6 @@
         const snippets = {
           // DataFrame
           sel: 'select(${*cols})',
-          cnt: 'count()',
           gb: 'groupBy(${*cols})',
           ob: 'orderBy(${*cols, ascending})',
           pb: 'partitionBy(${*cols})',
@@ -27,7 +26,8 @@
           wcr: 'withColumnRenamed(${existing, new})',
           jo: 'join(${other, on, how})',
           un: 'union(${other})',
-          dp: 'display(${df})',
+          dp: 'display(${df_or_fig})',
+          dph: 'displayHTML(${html})',
           sh: 'show(${nrows, truncate})',
           ps: 'printSchema()',
           sam: 'sample(${withReplacement, fraction, seed})',
@@ -58,6 +58,7 @@
           sumd: 'F.sumDistinct(${col})',
           len: 'F.length(${col})',
           rnd: 'F.round(${col, scale})',
+          cnt: 'F.count(${col})',
           cntd: 'F.countDistinct(${col})',
           uxt: 'F.unix_timestamp(${timestamp, format})',
           up: 'F.upper(${col})',
@@ -88,6 +89,7 @@
           wip: "write.mode('ignore').parquet(${path})",
 
           // aggregation
+          ag: 'agg(${*exprs})',
           agcnt: 'agg(F.count(${col}))',
           agcntd: 'agg(F.countDistinct(${col}))',
           agsum: 'agg(F.sum(${col}))',
