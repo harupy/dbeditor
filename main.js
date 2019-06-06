@@ -20,7 +20,7 @@
           cnt: 'count()',
           gb: 'groupBy(${*cols})',
           ob: 'orderBy(${*cols, ascending})',
-          pb: 'partitionBy(${*cols}',
+          pb: 'partitionBy(${*cols})',
           fil: 'filter(${condition})',
           fna: 'fillna(${value})',
           wc: 'withColumn(${colName, col})',
