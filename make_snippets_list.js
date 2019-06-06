@@ -22,8 +22,7 @@ const extractSnippets = snippetsString => {
   });
 };
 
-const funcs = [getSnippetsString];
-const snippetsString = funcs.reduce((s, f) => f(s), fileContent);
+const snippetsString = getSnippetsString;
 const snippets = extractSnippets(snippetsString);
 
 const markdownTable =
