@@ -15,10 +15,10 @@ const extractSnippets = snippetsString => {
   const snippetLines = snippetsString.match(/\s+(.+?):(.+)/gm);
   return snippetLines.map(line => {
     const [snippet, body] = line
-      .trim()
-      .match(/(.+?):\s+(.+),/)
-      .slice(1, 3);
-    return [snippet, removePlaceholder(body.slice(1, -1))];
+      .trim() // remove leading and trailing empty strings
+      .match(/(.+?):\s+(.+),/) // find snippet and body
+      .slice(1, 3); // extract 1st and 2nd matching groups
+    return [snippet, removePlaceholder(body.slice(1, -1))]; // slice here removes outer single quotes
   });
 };
 
