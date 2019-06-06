@@ -4,7 +4,7 @@
 | cnt     | count()                                                         |
 | gb      | groupBy()                                                       |
 | ob      | orderBy()                                                       |
-| pb      | partitionBy(                                                    |
+| pb      | partitionBy()                                                   |
 | fil     | filter()                                                        |
 | fna     | fillna()                                                        |
 | wc      | withColumn()                                                    |
