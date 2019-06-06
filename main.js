@@ -205,37 +205,25 @@
         cm.replaceRange('', leftEdge, rightEdge);
       };
 
-      // shortcuts
+      const useDefaultAction = actionName => cm => {
+        cm.execCommand(actionName);
+      };
+
       const extraKeyActions = {
-        'Ctrl-O': [openBlankLineBelow],
-        'Shift-Ctrl-O': [openBlankLineAbove],
-        'Alt-Right': ['goWordRight'],
-        'Alt-Left': ['goWordLeft'],
-        'Ctrl-L': ['delWrappedLineRight'],
-        'Ctrl-H': [delLineLeftSmart],
-        'Ctrl-K': [deleteCursorWord],
-        'Ctrl-U': [duplicateLineBelow],
-        'Shift-Ctrl-U': [duplicateLineAbove],
-        Tab: [expandSnippetOrIndent],
+        'Ctrl-O': openBlankLineBelow,
+        'Shift-Ctrl-O': openBlankLineAbove,
+        'Alt-Right': useDefaultAction('goWordRight'),
+        'Alt-Left': useDefaultAction('goWordLeft'),
+        'Ctrl-L': useDefaultAction('delWrappedLineRight'),
+        'Ctrl-H': delLineLeftSmart,
+        'Ctrl-K': deleteCursorWord,
+        'Ctrl-U': duplicateLineBelow,
+        'Shift-Ctrl-U': duplicateLineAbove,
+        Tab: expandSnippetOrIndent,
       };
 
-      const execAction = (cm, act) => {
-        switch (typeof act) {
-          case 'string':
-            cm.execCommand(act);
-            break;
-          case 'function':
-            act(cm);
-            break;
-          default:
-            throw new TypeError(`Expected string or function, but got ${typeof act}`);
-        }
-      };
-
-      Object.entries(extraKeyActions).forEach(([key, actions]) => {
-        cellEditing.CodeMirror.options.extraKeys[key] = cm => {
-          actions.forEach(act => execAction(cm, act));
-        };
+      Object.entries(extraKeyActions).forEach(([key, actionFunc]) => {
+        cellEditing.CodeMirror.options.extraKeys[key] = actionFunc;
       });
 
       // ----- key-sequence action -----
@@ -247,15 +235,16 @@
         cm.changedAt = now;
 
         const keySequenceActions = {
-          jj: [goLineLeftSmart],
-          jk: ['goLineRight'],
+          jj: goLineLeftSmart,
+          jk: useDefaultAction('goLineRight'),
         };
 
         if (lapseTime < 500) {
-          const keys = cm.getRange(head, anchor);
-          if (keys in fastKeysActions) {
+          const keySequence = cm.getRange(head, anchor);
+          if (keySequence in keySequenceActions) {
             cm.replaceRange('', head, anchor);
-            keySequenceActions[keys].forEach(act => execAction(cm, act));
+            const actionFunc = keySequenceActions[keySequence];
+            actionFunc(cm);
           }
         }
       };
