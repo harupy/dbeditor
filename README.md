@@ -59,7 +59,7 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 ## Snippets (Press `Tab` to expand)
 
-| Snippet | Output                                             |
+| Snippet | Body                                               |
 | :------ | :------------------------------------------------- |
 | fft     | from pyspark.sql import functions as f, types as t |
 | srt     | spark.read.table()                                 |
