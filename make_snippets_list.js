@@ -26,7 +26,7 @@ const snippetsString = getSnippetsString(fileContent);
 const snippets = extractSnippets(snippetsString);
 
 const markdownTable =
-  '|Snippet|Output|\n|:-|:-|\n' + snippets.map(s => `|${s.join('|')}|`).join('\n');
+  '|Snippet|Body|\n|:-|:-|\n' + snippets.map(s => `|${s.join('|')}|`).join('\n');
 
 fs.writeFile('snippets.md', markdownTable, err => {
   if (err) console.log(err);
