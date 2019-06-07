@@ -93,10 +93,21 @@
           agcnt: 'agg(F.count(${col}))',
           agcntd: 'agg(F.countDistinct(${col}))',
           agsum: 'agg(F.sum(${col}))',
-          agmean: 'agg(F.mean(${col}))',
+          agsumd: 'agg(F.sumDistinct(${col}))',
+          agmn: 'agg(F.mean(${col}))',
           agavg: 'agg(F.avg(${col}))',
           agmin: 'agg(F.min(${col}))',
           agmax: 'agg(F.max(${col}))',
+
+          // aggregation with alias
+          agcnta: "agg(F.count('${col}').alias('${col}_cnt'))",
+          agcntda: "agg(F.countDistinct('${col}').alias('${col}_cntd'))",
+          agsuma: "agg(F.sum('${col}').alias('${col}_sum'))",
+          agsumda: "agg(F.sumDistinct('${col}').alias('${col}_sumd'))",
+          agmna: "agg(F.mean('${col}').alias('${col}_mean'))",
+          agavga: "agg(F.ave('${col}').alias('${col}_avg'))",
+          agmina: "agg(F.min('${col}').alias('${col}_min'))",
+          agmaxa: "agg(F.max('${col}').alias('${col}_max'))",
 
           // dbutils
           dwg: 'dbutils.widgets.get(${varName})',
@@ -119,25 +130,44 @@
           ftw: 'from pyspark.sql import functions as F, types as T, window as W',
         };
 
-        const replacePlaceholder = (body, cursor, selections = []) => {
+        const replacePlaceholder = (body, selections = []) => {
           const pattern = /\$\{([^{}]*)\}/;
           const match = body.match(pattern);
           if (!match) {
             return [body, selections];
           } else {
             const [placeholder, defaultStr] = match;
-            const head = { line: cursor.line, ch: cursor.ch + match.index };
-            const anchor = { line: cursor.line, ch: head.ch + defaultStr.length };
+            const head = { line: 0, ch: match.index };
+            const anchor = { line: 0, ch: head.ch + defaultStr.length };
             const newBody = body.replace(placeholder, defaultStr);
-            return replacePlaceholder(newBody, cursor, [...selections, { head, anchor }]);
+            return replacePlaceholder(newBody, [...selections, { head, anchor }]);
           }
         };
 
         if (prefix in snippets) {
           const body = snippets[prefix];
-          const [newBody, selections] = replacePlaceholder(body, head);
-          cm.replaceRange(newBody, head, cursor);
-          cm.setSelections(selections);
+          const selections = cm.listSelections();
+          const rangesToReplace = selections.map(({ anchor, head }) => {
+            return { anchor, head: { line: head.line, ch: head.ch - prefix.length } };
+          });
+          const [newBody, offsets] = replacePlaceholder(body);
+
+          const newSelectionsList = selections.map(({ anchor: anchorSel, head: headSel }) => {
+            return offsets.map(({ anchor: anchorOffset, head: headOffset }) => {
+              const anchor = {
+                ch: anchorSel.ch + anchorOffset.ch - prefix.length,
+                line: anchorSel.line + anchorOffset.line,
+              };
+              const head = {
+                ch: headSel.ch + headOffset.ch - prefix.length,
+                line: headSel.line + headOffset.line,
+              };
+              return { anchor, head };
+            });
+          });
+          cm.setSelections(rangesToReplace);
+          cm.replaceSelections(Array(selections.length).fill(newBody));
+          cm.setSelections(newSelectionsList.flat());
         } else {
           tabDefaultFunc(cm);
         }
@@ -155,34 +185,48 @@
       };
 
       const goLineLeftSmart = cm => {
-        const cursorLine = getCursorLine(cm);
-        const leadingSpaces = cursorLine.match(/^\s*/)[0];
-        cm.setCursor(getCursorShift(cm, leadingSpaces.length));
+        const selections = cm.listSelections();
+        const newSelections = selections.map(({ head: headSel }) => {
+          const cursorLine = cm.getLine(headSel.line);
+          const leadingSpaces = cursorLine.match(/^\s*/)[0];
+          const head = { line: headSel.line, ch: leadingSpaces.length };
+          const anchor = head;
+          return { head, anchor };
+        });
+
+        cm.setSelections(newSelections);
       };
 
       const duplicateLineBelow = cm => {
-        const cursorLine = getCursorLine(cm);
+        const selections = cm.listSelections();
+        const cursorLines = selections.map(({ head }) => cm.getLine(head.line));
         ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
-        cm.replaceSelection(cursorLine);
-        cm.setCursor(getCursorShift(cm, 0, 1));
+        cm.replaceSelections(cursorLines);
+        const newSelections = selections.map(({ head: headSel, anchor: anchorSel }, idx) => {
+          const head = { ch: headSel.ch, line: headSel.line + idx + 1 };
+          const anchor = { ch: anchorSel.ch, line: anchorSel.line + idx + 1 };
+          return { head, anchor };
+        });
+        cm.setSelections(newSelections);
       };
 
       const duplicateLineAbove = cm => {
-        const cursor = cm.getCursor();
-        const cursorLine = getCursorLine(cm);
+        const selections = cm.listSelections();
+        const cursorLines = selections.map(({ head }) => cm.getLine(head.line));
         ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
-        cm.replaceSelection(cursorLine);
-        cm.setCursor(cursor);
+        cm.replaceSelections(cursorLines);
+        const newSelections = selections.map(({ head: headSel, anchor: anchorSel }, idx) => {
+          const head = { ch: headSel.ch, line: headSel.line + idx };
+          const anchor = { ch: anchorSel.ch, line: anchorSel.line + idx };
+          return { head, anchor };
+        });
+        cm.setSelections(newSelections);
       };
 
       const openBlankLineBelow = cm => {
         const cursorLine = getCursorLine(cm);
-        if (cursorLine.endsWith(':')) {
-          ['goLineRight', 'newlineAndIndent'].forEach(cmd => cm.execCommand(cmd));
-        } else {
-          ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
-          cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
-        }
+        ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
+        cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
       };
 
       const openBlankLineAbove = cm => {
@@ -236,20 +280,27 @@
       // ----- key-sequence action -----
       const onKeyup = (cm, e) => {
         const anchor = cm.getCursor();
-        const head = { line: anchor.line, ch: anchor.ch - 2 };
+        const head = getCursorShift(cm, -2, 0);
         const now = new Date().getTime();
         const lapseTime = now - (cm.changedAt || now); // unit: milliseconds
         cm.changedAt = now;
 
         const keySequenceActions = {
-          jj: goLineLeftSmart,
+          jj: useDefaultAction('goLineDown'),
+          kk: useDefaultAction('goLineUp'),
+          kj: goLineLeftSmart,
           jk: useDefaultAction('goLineRight'),
         };
 
         if (lapseTime < 500) {
           const keySequence = cm.getRange(head, anchor);
           if (keySequence in keySequenceActions) {
-            cm.replaceRange('', head, anchor);
+            const selections = cm.listSelections();
+            const rangesToReplace = selections.map(({ anchor, head }) => {
+              return { anchor, head: { line: head.line, ch: head.ch - 2 } };
+            });
+            cm.setSelections(rangesToReplace);
+            cm.replaceSelections(Array(selections.length).fill(''));
             const actionFunc = keySequenceActions[keySequence];
             actionFunc(cm);
           }
