@@ -7,8 +7,12 @@ const getSnippetsString = fileContent => {
   return fileContent.match(pattern)[1];
 };
 
-const removePlaceholder = body => {
-  return body.replace(/\$\{([^{}]*)\}/, '');
+const removePlaceholders = body => {
+  return body.replace(/\$\{([^{}]*)\}/g, '');
+};
+
+const removeArgStrings = body => {
+  return body.replace(/'.*?'/g, '');
 };
 
 const extractSnippets = snippetsString => {
@@ -18,7 +22,9 @@ const extractSnippets = snippetsString => {
       .trim() // remove leading and trailing empty strings
       .match(/(.+?):\s+(.+),/) // find snippet and body
       .slice(1, 3); // extract 1st and 2nd matching groups
-    return [snippet, removePlaceholder(body.slice(1, -1))]; // slice here removes outer single quotes
+
+    const funcs = [removePlaceholders, removeArgStrings];
+    return [snippet, funcs.reduce((s, f) => f(s), body.slice(1, -1))]; // slice here removes outer single quotes
   });
 };
 
