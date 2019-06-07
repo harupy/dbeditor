@@ -61,7 +61,7 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 ## Snippets (Press `Tab` to expand)
 
-[Snippet List](./snippets.md)
+[Snippets List](./snippets.md)
 
 ## Add your own snippets
 
