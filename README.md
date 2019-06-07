@@ -21,8 +21,10 @@ Code **FASTER** on Databricks
 1. Open a Databricks notebook on the browser
 1. Make sure the extension logo is enabled (the extension logo is enabled)
 1. Select a cell and enter the edit mode
-1. Type `df.gb`
-1. Press `Tab` (`gb` will be expanded to `groupBy()`)
+1. Type `dp` and press `Tab` (`dp` will be expanded to `display()`)
+1. Type `df.gb` and press `Tab` (`gb` will be expanded to `groupBy()`)
+1. Type `jj` **fast** (The cursor will move to the beginning of the line)
+1. Type `jk` **fast** (The cursor will move to the end of the line)
 1. Press `Ctrl-U` (The current line will be duplicated below)
 
 ## Customize
