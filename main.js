@@ -144,32 +144,39 @@
       };
 
       // ----- shortcuts -----
-      const goLineLeftSmart = cm => {
+      const getCursorLine = cm => {
         const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
+        return cm.getLine(line);
+      };
+
+      const getCursorShift = (cm, hShift = 0, vShift = 0) => {
+        const { line, ch } = cm.getCursor();
+        return { ch: ch + hShift, line: line + vShift };
+      };
+
+      const goLineLeftSmart = cm => {
+        const cursorLine = getCursorLine(cm);
         const leadingSpaces = cursorLine.match(/^\s*/)[0];
-        cm.setCursor({ line, ch: leadingSpaces.length });
+        cm.setCursor(getCursorShift(cm, leadingSpaces.length));
       };
 
       const duplicateLineBelow = cm => {
-        const { line, ch } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
+        const cursorLine = getCursorLine(cm);
         ['goLineRight', 'openLine', 'goLineDown'].forEach(cmd => cm.execCommand(cmd));
         cm.replaceSelection(cursorLine);
-        cm.setCursor({ line: line + 1, ch });
+        cm.setCursor(getCursorShift(cm, 0, 1));
       };
 
       const duplicateLineAbove = cm => {
-        const { line, ch } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
+        const cursor = cm.getCursor();
+        const cursorLine = getCursorLine(cm);
         ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
         cm.replaceSelection(cursorLine);
-        cm.setCursor({ line, ch });
+        cm.setCursor(cursor);
       };
 
       const openBlankLineBelow = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
+        const cursorLine = getCursorLine(cm);
         if (cursorLine.endsWith(':')) {
           ['goLineRight', 'newlineAndIndent'].forEach(cmd => cm.execCommand(cmd));
         } else {
@@ -179,22 +186,20 @@
       };
 
       const openBlankLineAbove = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
+        const cursorLine = getCursorLine(cm);
         ['goLineLeft', 'openLine'].forEach(cmd => cm.execCommand(cmd));
         cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
       };
 
       const delLineLeftSmart = cm => {
-        const { line } = cm.getCursor();
-        const cursorLine = cm.getLine(line);
+        const cursorLine = getCursorLine(cm);
         cm.execCommand('delLineLeft');
         cm.replaceSelection(cursorLine.match(/^\s*/)[0]);
       };
 
       const deleteCursorWord = cm => {
         const cursor = cm.getCursor();
-        const anchor = { line: cursor.line, ch: cursor.ch + 1 };
+        const anchor = getCursorShift(cm, 1);
         const charCursorRight = cm.getRange(cursor, anchor);
         const regex = /[a-zA-Z0-9_]/; // characters which can be used in a variable name
         if (charCursorRight.match(regex)) {
