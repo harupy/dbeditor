@@ -41,7 +41,7 @@
 
           // column
           al: 'alias(${alias})',
-          ca: 'cast(dataType)',
+          ca: 'cast(${dataType})',
           at: 'astype(dataType)',
           ow: 'otherwise(${value})',
           ew: 'endswith(${other})',
