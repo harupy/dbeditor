@@ -56,7 +56,9 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 | Key sequence | Action                      |
 | :----------- | :-------------------------- |
-| jj           | Go to the start of the line |
+| jj           | Go to the line below        |
+| kk           | Go to the line above        |
+| kj           | Go to the start of the line |
 | jk           | Go to the end of the line   |
 
 ## Snippets (Press `Tab` to expand)
