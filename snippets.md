@@ -56,6 +56,7 @@
 | dtfmt   | F.date_format()                                                 |
 | dtdf    | F.datediff()                                                    |
 | sec     | F.second()                                                      |
+| epl     | F.explode()                                                     |
 | srt     | spark.read.table()                                              |
 | src     | spark.read.csv()                                                |
 | srp     | spark.read.parquet()                                            |
@@ -94,5 +95,6 @@
 | udflong | @F.udf(T.LongType())                                            |
 | udfflt  | @F.udf(T.FloatType())                                           |
 | udfdbl  | @F.udf(T.DoubleType())                                          |
+| udfarr  | @F.udf(T.ArrayType())                                           |
 | scs     | sqlContext.sql()                                                |
 | ftw     | from pyspark.sql import functions as F, types as T, window as W |

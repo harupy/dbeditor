@@ -76,6 +76,7 @@
           dtfmt: 'F.date_format(${date, format})',
           dtdf: 'F.datediff(${end, start})',
           sec: 'F.second(${col})',
+          epl: 'F.explode(${col})',
 
           // io
           srt: 'spark.read.table(${tableName})',
@@ -124,6 +125,7 @@
           udflong: '@F.udf(T.LongType())',
           udfflt: '@F.udf(T.FloatType())',
           udfdbl: '@F.udf(T.DoubleType())',
+          udfarr: '@F.udf(T.ArrayType(${dataType}))',
 
           // others
           scs: 'sqlContext.sql()',
