@@ -96,7 +96,7 @@ Each cell on the notebook has an object called `CodeMirror` which manages the ce
 
 ## Acknowledgements
 
-A huge thanks to Databricks for making data science and machine learning easier to access for everyone.
+A huge thanks to Databricks for making big data simple.
 
 ## License
 
