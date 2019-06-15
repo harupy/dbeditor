@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const fileContent = fs.readFileSync('js/snippets.js', { encoding: 'utf8' });
+const fileContent = fs.readFileSync('src/js/snippets.js', { encoding: 'utf8' });
 
 const getSnippetsString = fileContent => {
   const pattern = /const snippets = \{([\s\S]+?)\};/;
