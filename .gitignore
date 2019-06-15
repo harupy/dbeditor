@@ -1,7 +1,8 @@
 .DS_Store
 node_modules/
-src/dist/
 .DS_Store
 *.gif
+img/
+dist/
 src.zip
 screenshot.png
