@@ -1,0 +1,16 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
+    }
+  },
+  "extends": ["eslint:recommended"],
+  "env": {
+    "browser": true,
+    "webextensions": true,
+    "node": true
+  },
+  "rules": { "no-console": ["error", { "allow": ["warn", "error"] }] }
+}

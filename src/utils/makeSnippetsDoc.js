@@ -1,9 +1,9 @@
 const fs = require('fs');
 
-const fileContent = fs.readFileSync('js/main.js', { encoding: 'utf8' });
+const fileContent = fs.readFileSync('js/snippets.js', { encoding: 'utf8' });
 
 const getSnippetsString = fileContent => {
-  const pattern = /const snippets = \{(.+?)\};/s;
+  const pattern = /const snippets = \{([\s\S]+?)\};/;
   return fileContent.match(pattern)[1];
 };
 
@@ -34,7 +34,6 @@ const snippets = extractSnippets(snippetsString);
 const markdownTable =
   '|Snippet|Body|\n|:-|:-|\n' + snippets.map(s => `|${s.join('|')}|`).join('\n');
 
-fs.writeFile('img/snippets.md', markdownTable, err => {
-  if (err) console.log(err);
-  console.log('Successfully written to file.');
+fs.writeFile('docs/snippets.md', markdownTable, err => {
+  if (err) console.error(err);
 });
