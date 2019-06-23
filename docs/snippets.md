@@ -99,3 +99,4 @@
 | scs     | sqlContext.sql()                                                |
 | ftw     | from pyspark.sql import functions as F, types as T, window as W |
 | shcnt   | select(F.count()).show()                                        |
+| asc     | ascending                                                       |
