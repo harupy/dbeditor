@@ -3,7 +3,7 @@ import * as cu from './cursorUtils';
 const snippets = {
   // ${...} represents the placeholder
 
-  // dataframe
+  // dataframe methods
   sel: 'select(${*cols})',
   gb: 'groupBy(${*cols})',
   ob: 'orderBy(${*cols, ascending})',
@@ -27,13 +27,13 @@ const snippets = {
   drd: 'dropDuplicates(${subset})',
   tpd: 'toPandas()',
 
-  // column
+  // column methods
   al: 'alias(${alias})',
   ca: 'cast(${dataType})',
   at: 'astype(dataType)',
   ow: 'otherwise(${value})',
   ew: 'endswith(${other})',
-  ss: 'startswith(${other})',
+  sw: 'startswith(${other})',
   isn: 'isNull()',
   isnn: 'isNotNull()',
   isi: 'isin(${*cols})',
@@ -43,7 +43,10 @@ const snippets = {
   col: 'F.col(${col})',
   lit: 'F.lit(${col})',
   std: 'F.stddev(${col})',
+  sum: 'F.sum(${col})',
   sumd: 'F.sumDistinct(${col})',
+  mn: 'F.mean(${col})',
+  avg: 'F.ave(${col})',
   len: 'F.length(${col})',
   rnd: 'F.round(${col, scale})',
   cnt: 'F.count(${col})',
@@ -54,11 +57,11 @@ const snippets = {
   tr: 'F.trim(${col})',
   ltr: 'F.ltrim(${col})',
   rtr: 'F.rtrim(${col})',
-  sst: 'F.substring(${str, pos, len})',
+  ss: 'F.substring(${str, pos, len})',
   rr: 'F.regexp_replace(${str, pattern, replacement})',
   rep: 'F.repeat(${col, n})',
   rev: 'F.reverse(${col})',
-  todt: 'F.to_date(${col})',
+  tdt: 'F.to_date(${col})',
   dtad: 'F.date_add(${date})',
   dtsb: 'F.date_sub(${date})',
   dtfmt: 'F.date_format(${date, format})',
@@ -72,10 +75,10 @@ const snippets = {
   srp: 'spark.read.parquet(${path})',
   wcsv: 'write.csv(${path})',
   wp: 'write.parquet(${path})',
-  wop: "write.mode('overwrite').parquet(${path})",
-  wap: "write.mode('append').parquet(${path})",
-  wep: "write.mode('error').parquet(${path})",
-  wip: "write.mode('ignore').parquet(${path})",
+  wmop: "write.mode('overwrite').parquet(${path})",
+  wmap: "write.mode('append').parquet(${path})",
+  wmep: "write.mode('error').parquet(${path})",
+  wmip: "write.mode('ignore').parquet(${path})",
 
   // aggregation
   ag: 'agg(${*exprs})',
@@ -118,7 +121,7 @@ const snippets = {
   // others
   scs: 'sqlContext.sql()',
   ftw: 'from pyspark.sql import functions as F, types as T, window as W',
-  shcnt: 'select(F.count(${col})).show()',
+  shcnt: "select(F.count(${'*'})).show()",
   asc: 'ascending',
 };
 
