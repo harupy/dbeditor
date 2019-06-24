@@ -141,23 +141,32 @@ const replacePlaceholder = (body, ranges = []) => {
 
 const expandSnippet = cm => {
   const lineBeforeCursor = cu.getLineBeforeCursor(cm);
-  const regex = /[^a-zA-Z0-9_]?([a-zA-Z0-9_]+)$/;
+  const regex = /[^a-zA-Z0-9_]?([\\a-zA-Z0-9_,]+)$/;
   const match = lineBeforeCursor.match(regex);
-  const prefix = match ? match[1] : '';
+
+  if (!match) {
+    return false;
+  }
+  const text = match[1];
+  const pieces = text.split('\\');
+  const prefix = pieces[0];
+  const args = pieces.length > 1 ? pieces.slice(1) : [];
 
   if (prefix && prefix in snippets) {
     const body = snippets[prefix];
     const selections = cm.listSelections();
     const rangesToReplace = selections.map(({ anchor, head }) => {
-      return { anchor, head: { line: head.line, ch: head.ch - prefix.length } };
+      const len = (prefix + ['', ...args].join('\\')).length;
+      return { anchor, head: { line: head.line, ch: head.ch - len } };
     });
     const [newBody, rangesToSelect] = replacePlaceholder(body);
 
     const newSelections = selections
       .map(sel => {
         return rangesToSelect.map(range => {
-          const anchor = cu.withOffset(cu.mergeCursors(sel.anchor, range.anchor), -prefix.length);
-          const head = cu.withOffset(cu.mergeCursors(sel.head, range.head), -prefix.length);
+          const len = (prefix + ['', ...args].join('\\')).length;
+          const anchor = cu.withOffset(cu.mergeCursors(sel.anchor, range.anchor), -len);
+          const head = cu.withOffset(cu.mergeCursors(sel.head, range.head), -len);
           return { anchor, head };
         });
       })
@@ -166,6 +175,10 @@ const expandSnippet = cm => {
     cm.setSelections(rangesToReplace);
     cm.replaceSelections(Array(selections.length).fill(newBody));
     cm.setSelections(newSelections);
+    if (args.length) {
+      const replacement = args.map(arg => `'${arg}'`).join(', ');
+      cm.replaceSelections(Array(selections.length).fill(replacement));
+    }
     return true;
   } else {
     return false;
