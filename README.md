@@ -3,7 +3,7 @@
 Code **FASTER** on Databricks
 
 <kbd>
-  <img src="https://user-images.githubusercontent.com/17039389/59431847-d418bf00-8e20-11e9-8c99-ebb7ff55310b.gif">
+  <img src="https://user-images.githubusercontent.com/17039389/60017754-7ad44980-96c4-11e9-8ff4-8a680ff393fd.gif">
 </kbd>
 
 ## What this extension provides
