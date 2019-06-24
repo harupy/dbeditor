@@ -139,16 +139,24 @@ const replacePlaceholder = (body, ranges = []) => {
   }
 };
 
+const escapeRegExp = string => {
+  const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+  const reHasRegExpChar = RegExp(reRegExpChar.source);
+  return string && reHasRegExpChar.test(string) ? string.replace(reRegExpChar, '\\$&') : string;
+};
+
+const argSep = '/';
 const expandSnippet = cm => {
   const lineBeforeCursor = cu.getLineBeforeCursor(cm);
-  const regex = /[^a-zA-Z0-9_]?([\\a-zA-Z0-9_,]+)$/;
+  const regex = new RegExp(`[^a-zA-Z0-9_]?([${escapeRegExp(argSep)}a-zA-Z0-9_,]+)$`);
   const match = lineBeforeCursor.match(regex);
 
   if (!match) {
     return false;
   }
+
   const text = match[1];
-  const pieces = text.split('\\');
+  const pieces = text.split(argSep);
   const prefix = pieces[0];
   const args = pieces.length > 1 ? pieces.slice(1) : [];
 
@@ -156,7 +164,7 @@ const expandSnippet = cm => {
     const body = snippets[prefix];
     const selections = cm.listSelections();
     const rangesToReplace = selections.map(({ anchor, head }) => {
-      const len = (prefix + ['', ...args].join('\\')).length;
+      const len = (prefix + ['', ...args].join(argSep)).length;
       return { anchor, head: { line: head.line, ch: head.ch - len } };
     });
     const [newBody, rangesToSelect] = replacePlaceholder(body);
@@ -164,7 +172,7 @@ const expandSnippet = cm => {
     const newSelections = selections
       .map(sel => {
         return rangesToSelect.map(range => {
-          const len = (prefix + ['', ...args].join('\\')).length;
+          const len = (prefix + ['', ...args].join(argSep)).length;
           const anchor = cu.withOffset(cu.mergeCursors(sel.anchor, range.anchor), -len);
           const head = cu.withOffset(cu.mergeCursors(sel.head, range.head), -len);
           return { anchor, head };
