@@ -12,5 +12,5 @@
     "webextensions": true,
     "node": true
   },
-  "rules": { "no-console": ["error", { "allow": ["warn", "error"] }] }
+  "rules": { "no-console": ["error", { "allow": ["log", "warn", "error"] }] }
 }
