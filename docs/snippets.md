@@ -5,11 +5,13 @@
 |ob|orderBy()|
 |pb|partitionBy()|
 |fil|filter()|
+|filcol|filter(F.col())|
 |fna|fillna()|
 |wc|withColumn()|
 |wcr|withColumnRenamed()|
 |jo|join()|
 |un|union()|
+|una|unionAll()|
 |dp|display()|
 |dph|displayHTML()|
 |sh|show()|
