@@ -84,12 +84,12 @@ Each cell on the notebook has an object called `CodeMirror` which manages the ce
 
 ## Other Extensions
 
-| Extension Name                             | Purpose                                       |
-| :----------------------------------------- | :-------------------------------------------- |
-| [DBVim](https://github.com/harupy/vim)     | Enable Vim on Databricks                      |
-| [DBDark](https://github.com/harupy/dbdark) | Provide a dark theme on Databricks            |
-| [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents with one click     |
-| [DBHide](https://github.com/harupy/dbhide) | Hide code and cells to see the results easily |
+| Extension Name                             | Purpose                                   |
+| :----------------------------------------- | :---------------------------------------- |
+| [DBVim](https://github.com/harupy/vim)     | Enable Vim on Databricks                  |
+| [DBDark](https://github.com/harupy/dbdark) | Provide a dark theme on Databricks        |
+| [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents with one click |
+| [DBHide](https://github.com/harupy/dbhide) | Hide unnecessary code and cells           |
 
 ## References
 
