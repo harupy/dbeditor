@@ -1,6 +1,6 @@
 # DBEditor
 
-Code **FASTER** on Databricks
+A Chrome extension to provide useful code editting features on Databricks.
 
 <kbd>
   <img src="https://user-images.githubusercontent.com/17039389/60017754-7ad44980-96c4-11e9-8ff4-8a680ff393fd.gif">
@@ -27,14 +27,15 @@ Code **FASTER** on Databricks
 1. Type `jk` **fast** (The cursor will move to the end of the line)
 1. Press `Ctrl-U` (The current line will be duplicated below)
 
-## Customize
+## Build from the Source
 
 1. Clone this repository
-1. Edit the source code
+1. `npm install`
+1. `npm build`
 1. Open `chrome://extensions` on Chrome
-1. Enable `Developer mode`
+1. Enable `Developer mode` if it's disabled
 1. Click `Load unpacked`
-1. Select the extension directory
+1. Select `src` in the extension directory
 
 ## Shortcuts
 
@@ -67,13 +68,13 @@ This feature allows you to trigger actions by pressing one or more keys multiple
 
 ## Add your own snippets
 
-You can add your own snippets by inserting a new key/value pair to the variable `snippets` in `main.js`.
+You can add your own snippets by inserting a new key/value pair to the variable `snippets` in `snippets.js`.
 
 ```js
 const snippets = {
   ...
   // your own snippet
-  'ms'   : 'func_name()',
+  'mf'   : 'myFunc(${args})',
 }
 ```
 
@@ -85,14 +86,14 @@ Each cell on the notebook has an object called `CodeMirror` which manages the ce
 
 | Extension Name                             | Purpose                                       |
 | :----------------------------------------- | :-------------------------------------------- |
-| [DBDark](https://github.com/harupy/dbdark) | Provide dark theme for Databricks             |
-| [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents automatically      |
+| [DBVim](https://github.com/harupy/vim)     | Enable Vim on Databricks                      |
+| [DBDark](https://github.com/harupy/dbdark) | Provide a dark theme on Databricks            |
+| [DBToc](https://github.com/harupy/dbtoc)   | Create a table of contents with one click     |
 | [DBHide](https://github.com/harupy/dbhide) | Hide code and cells to see the results easily |
 
 ## References
 
 - [CodeMirror: User Manual](https://codemirror.net/doc/manual.html)
-- [Is there a way to use Vim keybindings in Google Colaboratory?](https://stackoverflow.com/questions/48674326/is-there-a-way-to-use-vim-keybindings-in-google-colaboratory)
 
 ## Acknowledgements
 
