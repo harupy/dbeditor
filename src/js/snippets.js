@@ -45,14 +45,16 @@ const snippets = {
   col: 'F.col(${col})',
   lit: 'F.lit(${col})',
   std: 'F.stddev(${col})',
+  cnt: 'F.count(${col})',
+  cntd: 'F.countDistinct(${col})',
   sum: 'F.sum(${col})',
   sumd: 'F.sumDistinct(${col})',
+  min: 'F.min(${col})',
+  max: 'F.max(${col})',
   mn: 'F.mean(${col})',
   avg: 'F.ave(${col})',
   len: 'F.length(${col})',
   rnd: 'F.round(${col, scale})',
-  cnt: 'F.count(${col})',
-  cntd: 'F.countDistinct(${col})',
   uxt: 'F.unix_timestamp(${timestamp, format})',
   up: 'F.upper(${col})',
   low: 'F.lower(${col})',
@@ -82,7 +84,7 @@ const snippets = {
   wmep: "write.mode('error').parquet(${path})",
   wmip: "write.mode('ignore').parquet(${path})",
 
-  // aggregation
+  // aggregations
   ag: 'agg(${*exprs})',
   agcnt: 'agg(F.count(${col}))',
   agcntd: 'agg(F.countDistinct(${col}))',
@@ -93,7 +95,7 @@ const snippets = {
   agmin: 'agg(F.min(${col}))',
   agmax: 'agg(F.max(${col}))',
 
-  // aggregation with alias
+  // aggregations with alias
   agcnta: "agg(F.count('${col}').alias('${col}_cnt'))",
   agcntda: "agg(F.countDistinct('${col}').alias('${col}_cntd'))",
   agsuma: "agg(F.sum('${col}').alias('${col}_sum'))",
@@ -124,7 +126,7 @@ const snippets = {
   scs: 'sqlContext.sql()',
   ftw: 'from pyspark.sql import functions as F, types as T, window as W',
   shcnt: "select(F.count(${'*'})).show()",
-  ascf: 'ascending=False',
+  ascf: 'ascending=${False}',
 };
 
 const replacePlaceholder = (body, ranges = []) => {
