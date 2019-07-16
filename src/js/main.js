@@ -1,6 +1,5 @@
 import enableShortcuts from './shortcuts';
 import enableSnippets from './snippets';
-import enableKeySeqActions from './keySeqActions';
 
 (() => {
   const updateCell = () => {
@@ -10,7 +9,6 @@ import enableKeySeqActions from './keySeqActions';
       const cm = cellEditing.CodeMirror;
       enableShortcuts(cm);
       enableSnippets(cm);
-      enableKeySeqActions(cm);
     }
   };
 

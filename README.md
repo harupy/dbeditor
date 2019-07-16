@@ -9,7 +9,6 @@ A Chrome extension to provide useful code editting features on Databricks.
 ## What this extension provides
 
 - Shortcuts
-- Key-Sequence Action
 - Code Snippets
 
 ## Installation
@@ -23,8 +22,6 @@ A Chrome extension to provide useful code editting features on Databricks.
 1. Select a cell and enter the edit mode
 1. Type `dp` and press `Tab` (`dp` will be expanded to `display()`)
 1. Type `df.gb` and press `Tab` (`gb` will be expanded to `groupBy()`)
-1. Type `kj` **fast** (The cursor will move to the beginning of the line)
-1. Type `jk` **fast** (The cursor will move to the end of the line)
 1. Press `Ctrl-U` (The current line will be duplicated below)
 
 ## Build from the Source
@@ -50,17 +47,6 @@ A Chrome extension to provide useful code editting features on Databricks.
 | Ctrl-H       | Delete up to the start of the current line |
 | Ctrl-U       | Duplicate the current line below           |
 | Ctrl-Shift-U | Duplicate the current line above           |
-
-## Key-Sequence Action
-
-This feature allows you to trigger actions by pressing one or more keys multiple times **FAST** in sequence (similar to mapping `jj`or `jk` to `Esc` in Vim).
-
-| Key sequence | Action                      |
-| :----------- | :-------------------------- |
-| jj           | Go to the line below        |
-| kk           | Go to the line above        |
-| kj           | Go to the start of the line |
-| jk           | Go to the end of the line   |
 
 ## Snippets (Press `Tab` to expand)
 
