@@ -7,6 +7,7 @@ const snippets = {
   sel: 'select(${*cols})',
   gb: 'groupBy(${*cols})',
   ob: 'orderBy(${*cols, ascending})',
+  obaf: 'orderBy(${*cols}, ascending=False)',
   pb: 'partitionBy(${*cols})',
   fil: 'filter(${condition})',
   filcol: 'filter(F.col(${col}))',
@@ -38,7 +39,7 @@ const snippets = {
   sw: 'startswith(${other})',
   isn: 'isNull()',
   isnn: 'isNotNull()',
-  isi: 'isin(${*cols})',
+  isin: 'isin(${*cols})',
   btw: 'between(${lower, upper})',
 
   // functions
@@ -126,7 +127,7 @@ const snippets = {
   scs: 'sqlContext.sql()',
   ftw: 'from pyspark.sql import functions as F, types as T, window as W',
   shcnt: "select(F.count(${'*'})).show()",
-  af: 'ascending=${False}',
+  af: 'ascending=False',
 };
 
 const replacePlaceholder = (body, ranges = []) => {
