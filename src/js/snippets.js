@@ -53,7 +53,7 @@ const snippets = {
   min: 'F.min(${col})',
   max: 'F.max(${col})',
   mn: 'F.mean(${col})',
-  avg: 'F.ave(${col})',
+  avg: 'F.avg(${col})',
   len: 'F.length(${col})',
   rnd: 'F.round(${col, scale})',
   uxt: 'F.unix_timestamp(${timestamp, format})',
