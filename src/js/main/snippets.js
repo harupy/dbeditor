@@ -1,6 +1,8 @@
 import * as cu from './cursorUtils';
 
-const snippets = {
+const userSnippets = JSON.parse(document.querySelector('textarea#user-snippets').value);
+
+const defaultSnippets = {
   // ${...} represents the placeholder
 
   // dataframe methods
@@ -143,6 +145,8 @@ const replacePlaceholder = (body, ranges = []) => {
     return replacePlaceholder(newBody, [...ranges, { head, anchor }]);
   }
 };
+
+const snippets = { ...defaultSnippets, ...userSnippets };
 
 const escapeRegExp = string => {
   const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;

@@ -13,5 +13,8 @@
       "run_at": "document_idle"
     }
   ],
-  "web_accessible_resources": ["dist/main.js"]
+  "options_page": "dist/options.html",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "web_accessible_resources": ["dist/main.js", "dist/options.js"],
+  "permissions": ["storage"]
 }

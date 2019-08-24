@@ -3,8 +3,9 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    main: './src/js/main.js',
-    contentScript: './src/js/contentScript.js',
+    main: './src/js/main/index.js',
+    contentScript: './src/js/main/contentScript.js',
+    options: './src/js/options/index.js',
   },
   output: {
     path: path.join(__dirname, 'src/dist/'),
@@ -29,7 +30,8 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [['@babel/preset-env', { modules: false }]],
+              presets: [['@babel/preset-env', { modules: false }], ['@babel/preset-react']],
+              plugins: ['@babel/plugin-proposal-class-properties'],
             },
           },
         ],
